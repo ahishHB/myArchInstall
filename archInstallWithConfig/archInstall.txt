@@ -1,0 +1,51 @@
+: //this is a diff step 
+
+: install arch iso from archlinux.org/downloads (spell idk)
+
+:use rofus or something and make a bootable usb , then boot to it 
+:check internet connection (use ethernet)
+:$timedatectl set-ntp true
+:$lsblk //note the name of the hardware u want to install it in  // sda1 and sda 2 or nvme01p1 etc etc 
+:make a partitions for 128M grub and rest for linux itself
+type can be of DOS or GPT ,if gpt u wont have the bootable flag ,from what i have read grub ignores it anyway
+:now format the 2 partitions
+the 128M $mkfs.ext4 /dev/sda1 		(or eqvivalent)
+do the same for the other partition
+:mkfs.ext4 /dev/sda3 			(or eqvi)
+:$ mount /dev/sda3 /mnt 		(the non grub partition) 
+:$ mkdir /mnt/boot 			(make boot folder )
+:$ mount /dev/sda1 /mnt/boot 		(mount the boot to boot folder )
+:$ pacstrap /mnt base base-devel linux linux-firmware vim
+//making fstab (look up tab for ur system to load stuff)
+//make sure to use uuid not just device id cause device id can change, uuid is constant 
+:$ genfstab -U /mnt >> /mnt/etc/fstab
+//now to change root to the install iso
+:$ arch-chroot /mnt /bin/bash
+//u can type ls to confirm u are in root 
+:$ pacman -S networkmanager grub
+//self explanatory 
+//optional :$ systemctl enable NetworkManager 
+//to have internet whenever u boot 
+//grub installation
+make sure u have the 128M partition as EFI type not as linux type 
+grub issue !!!
+	couldnt fine efi directory 
+	make sure the sda1 is for type fat32
+	umount /dev/sda1 
+	mkdir /boot/EFI (caps needed)
+	then remount to /boot/EFI
+	if it says efibootmgr not found use pacman to install it again
+	then just use grub-install /dev/sda (no numbers)
+
+:$ grub-mkconfig -o /boot/grub/grub.cfg (regardless of error in previous step)
+
+
+
+1 and 3 only
+remember
+
+
+
+when he says sda2 then use sda3
+sda 1 is just sda 1
+password of it is 1234

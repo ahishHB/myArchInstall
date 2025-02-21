@@ -1,0 +1,31 @@
+syntax on
+set number
+colorscheme elflord
+inoremap ( ()<Esc>i
+inoremap { {<RETURN>i<RETURN>}<Esc>kA<BS>
+inoremap ' ''<Esc>i
+inoremap " ""<Esc>i
+inoremap [ []<Esc>i
+inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+"filetype indent on " this causes tab to stop working in visual mode 
+set autoindent
+set noexpandtab
+set shiftwidth=4
+set tabstop=4
+set softtabstop=4
+set incsearch
+set clipboard=unnamedplus
+set viminfo='100,<1000,s100,h
+set completeopt=menuone,noinsert,noselect
+set wildmode=list:longest
+
+set updatetime=200
+
+set complete=.,w,b,u,t,i
+
+let s:skip_feedkeys = 0
+
+autocmd InsertCharPre * if match(v:char,'[a-zA-Z]') >= 0 | let s:skip_feedkeys = 1 | else | let s:skip_feedkeys = 0 | endif
+autocmd TextChangedI * if s:skip_feedkeys | call feedkeys("\<C-N>", 'n') | endif
+autocmd TextChangedI * let s:skip_feedkeys = 0
+

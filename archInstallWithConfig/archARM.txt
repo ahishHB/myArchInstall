@@ -1,0 +1,11 @@
+go to website arch arm 
+download armv7 for rpi 
+
+in a folder create two subfiolders 
+boot/ root/
+follow these steps 
+https://archlinuxarm.org/platforms/armv8/broadcom/raspberry-pi-4
+
+this works 
+
+for getting yay working u need to go to /etc/makepkg.com file on the 48th line remove the last paramter in CFlags

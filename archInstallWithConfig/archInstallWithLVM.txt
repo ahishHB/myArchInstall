@@ -1,0 +1,24 @@
+follow the guides as usual 
+but when it comes time for partition
+choose a drive in gpt format
+partition 1 == 1GB type EFI system (using cfdisk)
+part 2 == rest type linux LVM 
+mkfs.fat -F32 /dev/efiSystemPartition
+pvcreate /dev/restOfThePartition
+then create a volume group 
+vgcreate nameOfGroup /dev/pvPartition
+then create logical volumes 
+lvcreate -L 10G nameOfGroup -n root 
+lvcreate -l +100%FREE nameOfGroup -n home 
+then follow the guides as usual 
+while in chroot 
+vim /etc/mkinitcpio.conf 
+in hooks = between block filesystems type "lvm2"
+makesure to pacman -S lvm2
+
+after intalling awesome-git from yay 
+install xorg-xserver xorg-xinit
+install a terminal emulator 
+cp /etc/xdg/awesome/rc.lua to .config/awesome/
+in xinit.rc
+exec awesome

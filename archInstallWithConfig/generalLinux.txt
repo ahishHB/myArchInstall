@@ -1,0 +1,204 @@
+fix pacman 
+    sudo pacman -Sy archlinux-keyring
+    
+<ALt shift q> to quit dwm
+put touch pad stuff 
+learn how to use dwm properly maybe later use it and recompile it to reuse
+#how to use battery percentage 
+cat /sys/class/power_supply/BAT0/capacity
+to enable tap and double tap 
+	first install xf86-input-libinput
+	then cd into /etc/X11/xorg.conf.d/
+	then create a new file called vim 30-touchpad.conf
+	in that file type 
+
+		Section "InputClass"
+			Identifier "devname"
+			Driver "libinput"
+			Option "Tapping" "on"
+			Option "NatureScrolling" "true"
+		EndSection
+
+to make things start automatically u can type "exec dwm" in home/ahish or in file /etc/X11/xinit/xinitrc in the file .xinitrc 
+type startx to start dwm
+type watch -n0 cat /sys/class/power_supply/BAT0/capacity to contstantly view bat %
+for backlight control
+i installed a package called light 
+	use light -G to show current brightness
+	use light -S 20 to set brightness to 20%
+
+
+to find the size of a file in linux : u can use ls <name of object> -lh/-alh* 
+				    : u can use du <name of object> -h (disk usage)
+				    : u can use stat name of object 
+				    : du <name> -sh (this includes subdirectories)
+				    
+
+this laptop takes 50 secs to charge by 1% at 50% batt at 40% screen bright and no other process other than btop 
+
+
+### put laptop to sleep ## sudo systemctl suspend
+
+
+use >> mv namesof_thing1 nameof_thing2 -t destination_folder for moving stuff
+use >
+>
+
+ls -a to list all the files and folders in a directory
+
+
+use :yank and :put to use clip board1
+
+~/.vimrc file is found inside the ahish directory 
+
+in that file
+	 set incsearch 
+	this makes it such that when u press "/" outside the insert mode it searches for strings incrementally
+
+use "esc"
+then press a number and shift+g to skip to that number
+
+to go to the last line of a file press shift+g in vim
+
+to auto complete words press cntrl+n 
+press cntrl +w +v
+type traceroute with link of a website to trace who all it is going through
+use function control shift up and down arrow to change the font size of the dwm 
+press alt"mod" + b to hide that terminal
+press alt + j/k to switch windows 
+alt + t/f/ for window controls
+alt +m single window fullscreen 
+use alt/meta + shift + 1-9 to move the hovering window to that specific desktop
+use alt/mod + shift space to retile it 
+use alt/mod + space 
+
+
+ to connect to wifi use 
+    nmcli is a part of networkmanager 
+    make sure to enable it by "sudo systemctl enable networkmanager"
+    -- nmcli device wifi list 
+    -- nmcli device wifi connect <name of network> password <password>
+    if hidden then add at end -- hidden yes
+    -- nmcli connecctions show - shows if connected 
+    also remember to use sudo 
+    to turn off wifi nmcli radio wifi off
+    use -- sudo nmcli c up <name of wifi> to reconnect
+    down to disconnect
+    to turn on and off the entire wifi 
+        use nmcli radio wifi on/off
+        nmcli c delete <name of wifi>
+        forgets the wifi
+        
+
+
+    nmcli connection delete <name of wifi >
+    nmcli con up nameofwifi
+    nmcli con down nameofwifi
+
+#include <stdio.h>
+#include <stdio.h>
+#include <stdio.h>
+if pacman doesnt work try to disable SigLevel in /etc/pacman.conf by replacing it with never 
+
+to check for ur ip address
+type $ip addr
+
+
+
+to unzip files 
+    tar -<flags> <filename> -C <target directory>
+    flags - 
+        x -> extract (uncompressed)
+        f -> specific file only
+        v -> verbose output
+        z -> decompress 
+        t -> list contents without unzipping (use with f flag)
+
+in visual mode highlight the required text and press y to yank it or d to cut it
+then go where u want and press p to paste it 
+
+dbus-launch kdeconnect-app works 
+but try to do directly from cli
+
+
+to refactor a variable in vim 
+	go the name of the variable then press gD(globally used) or gd(int scope)
+	then ur cursor should be on the name of the variable
+	then press c gn (change new name )then type the name u want it to be 
+	then press esc then if u want to go step by step press . repeatedly
+	if u want all occurensses then type :%norm. 
+
+
+to refactor a variable in a local scope 
+	go to the variable
+	press gd
+	go to visial modeselect the full scope u want to replace
+	press colon twice :: as u can get garbage (like ''<,'>'), i firgured out pressing :: twice isnt required double// takes care of it but this sucks dont do it , just use :: it takes care of scope
+	then press s//<name of new >/gc then press y as u go on 
+
+
+##
+REFACTORING THE RIGHT WAY:
+##
+
+	go to the first time the variable is used (in a specific scope if u want , but u can press gD to go to the very first time it was used )
+	then press shift+v to go to visual line , then go till the scope u want (or full file)
+	then press :: (u will get bs like ;<:>; something similar ignore it its ok)
+	then press s//<name of new name for variable>/gc then hit enter then press y as u go on 
+
+
+
+when making an array in a function remember that u cant return the array no matter what you do , u can return the memory location but after the function is executed it is taken as un allocated 
+
+
+// compiling using g++ >> g++ mainfile.cpp classfile.cpp -lm -o test 
+	this only works if the classes are linked properly , the classfile.cpp should have the include "classfile.hpp" 
+	and the mainfile should also include "classfile.hpp"
+	also remember to use include protections
+
+vim by default can only copy 50 lines so make sure u reset it 
+
+vim -p file1 file2 use gt gT to move between tabs
+or while in vim u can :tabedit file2 // to open new tabs
+use gt gT or Gt i forget to switch between tabs
+
+to indent use visual mode to highlight text and press shift+ < 
+also press . to repeat the indent action 
+
+use sudo pacman -Qdtq to list all the unneeded packages
+
+use sudo pacman -R $(pacman -Qdtq) to remove them
+
+ideally use sudo pacman -R <package name>
+first then use line above to remove the no longer used dependencies
+
+if swap file is giving too much trouble
+then delete this in the same directory
+rm .filename.cpp.swp
+
+
+use vim -O file1.cpp file2.cpp 
+to open windows in vim and use cntrl w with arrow keys to move inbetween them
+
+
+/// to find any file in ur system
+
+$find / -type f -iname filename.txt
+	f means it is a file 
+	-iname = ignore case sensitivity
+
+
+kde connect -
+dbus-launch kdeconnect-cli -l or something 
+
+ ping -f www.geeksforgeeks.org
+
+tar -zcvf arcName.tar.gz dirname1 dirname2 etc etc
+
+ pacman -Qdtq  then pacman -Rs them 
+ chown :wheel filename // this makes sure the group permissons are updated to wheel grp
+ chown ahish filename // this makes sure the owner is set
+ chmod -R 777 file name is the way to ensure OwnerGroupOthers basically 3 digit binary setter ReadWriteExe
+ffmpeg -i file.mp3 -af "highpass=f=200, lowpass=f=300" out.mp3
+
+use bsdtar to unzip .zip files

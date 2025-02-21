@@ -1,0 +1,169 @@
+how to effectively use git
+
+##config
+	git config --global user.name "ahish" (or without quotes)
+	git config --global user.email ahishhb@gmail.com
+	git config --global core.editor "vim"
+	git config --global -e (views the config file)
+	git config --global core.autocrlf true (for windows)
+	git config --global core.autocrlf input (for linux )
+	git config -h for help
+	git config --help for detailed help
+## creating directory and a repo
+	git init creates a new .git folder inside where u are 
+	git add file1 file2 
+	then git commit -m "message"
+	git add fileToDelete (this essentaially removes the file if it doesnt exsist while
+				 commiting)
+	git commit -m "removed extra uneeded file" (after executing the previous statment)
+	git add . (adds all)
+	before commiting if u change a file it will show up as modified when u type 
+	git status 
+	i.e it is a snapshot at that time  
+	
+	how to commit it -->
+	git commit -m "inital commit"
+	git commit -m (without message) opens default editor and u can type a message after
+	the words
+
+	Initial commit.
+
+	message itself without anyworry of syntax
+	
+	using git without add it to a stage 
+	git commit -a -m "message"
+	git commit -am "message"
+	git ls-files (lists all files)
+	git rm file (removes file from working dir and stage)
+	
+
+
+	renaming files -->
+	
+	after renaming a file
+	git add oldname.txt  (if u dont do this then in the stage the old file name will 
+	exsist along with the renamed file )
+	git add newname.txt 
+	git status
+	or
+	git mv oldname.txt newname.txt
+	
+
+### ignore files
+
+	create a file named 	
+
+### ignore files
+
+	create a file named gitignore in root dir 
+	touch .gitignore
+	vim .gitignore in that -->
+	logs/ (this doesnt really do anything)
+	names of stuff to ignore
+
+	remember to add the .gitignore file to the stage before commiting it 
+	if u add a file before u add it to the .gitignore then it remains in the stage
+	this is bad as it will not really ignore it, to this u should remove it only 
+	from the stage and not from ur file system , normal git rm filename wont work
+	(will work with unintended concequences)
+	use 
+	git rm --cached nameOfFile nameOfDir
+	 
+	this makes sure it is ignored while commiting even if u accidently added it 
+	before u added it to .gitignore
+	*.txt will ignore all txt files 
+
+### get the difference between the staging area
+
+	git diff --staged filenames
+	git diff (staged with working dir)
+
+### view git difference using vim 
+
+
+
+
+### view logs
+	git log
+	git log --oneline
+	git log --reverse
+
+### view old commited files
+	git show (hexadecimal string)
+	git show HEAD~1  (the number signifies how many steps back u need to go from the latest
+	version ) without a number it takes default as latest
+	this shows the diff
+
+	to see the actual file 
+	git show HEAD~1:folder/file.ext
+	or u can type the string (only a few is enough ) after looking it up on git log
+### view everything
+	git ls-tree HEAD~1
+
+this crucial to view the over view look at git logs first then after u know which commit to use
+use git ls-tree with the specific tree to view the contents of that commit , using that 
+u can use git show again using that file hex string to view the contents
+
+
+better use git logs to see which commit u want to see
+then use git ls-tree HEAD~1:dest to see the contents 
+then finally use git show HEAD~1:dest to see the file it self
+
+### restore 
+
+	git restore --source=HEAD~1 filename foldername 
+	this restores it to the working to dir 
+
+## remote adding 
+
+$git remote commit origin <url>
+ first of all make sure u have an ssh key available 
+use ssh-keygen -t rsa -b 4096 -C "mail.com"
+default all 
+
+now take the key generated (public one) and paste it in the github/access/sshkey gen page 
+now create a repository  make it public 
+go to code and click on shh (next to https)
+copy it 
+go to project folder 
+make sure u have aall the things ready (from before )
+git remote add <alaisName> <url>
+make sure u have committed all changes locally 
+then git remote <alaisName> <branch name>
+
+
+
+origin is an alais for the url 
+renaming 
+
+$ git remote rename <old> <new>
+
+
+
+
+
+from learning about git for the kindle project 
+
+do git status 
+u get commits and shit 
+but when u do git init and then do git remote u get nothing 
+this is cause no remotes are added yet 
+so make one called origin or something
+u can rename it by using git remote rename origin <other name>
+creating a new remote 
+git remote add origin(whatever u want) <url https git:ahish/proj.git> 
+git remote remove origin 
+will remove the remotes
+
+
+use git branch main 
+to switch branches use 
+
+git checkout <branchname>
+
+then u can 
+git push <origin> <branch name>
+it will ask u for username pass
+type this git config --global credential.helper cache
+to cache credentials
+then in github settings/dev create a token and enter thst instead of password 
