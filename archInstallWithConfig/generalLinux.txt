@@ -1,5 +1,11 @@
+go to index at the end of file .. 
+
+
 fix pacman 
     sudo pacman -Sy archlinux-keyring
+ pacman -Qdtq  then pacman -Rs them 
+use vim -O file1.cpp file2.cpp 
+to open windows in vim and use cntrl w with arrow keys to move inbetween them
     
 <ALt shift q> to quit dwm
 put touch pad stuff 
@@ -111,8 +117,14 @@ to unzip files
         x -> extract (uncompressed)
         f -> specific file only
         v -> verbose output
-        z -> decompress 
+        z -> for gzip only
+		j -> bsdtar bzip2
+		J -> xz type
+
+		c -> compress
         t -> list contents without unzipping (use with f flag)
+	use bsdtar with the xvzf flag to unzip .zip files
+tar -zcvf arcName.tar.gz dirname1 dirname2 etc etc
 
 in visual mode highlight the required text and press y to yank it or d to cut it
 then go where u want and press p to paste it 
@@ -165,20 +177,10 @@ use gt gT or Gt i forget to switch between tabs
 to indent use visual mode to highlight text and press shift+ < 
 also press . to repeat the indent action 
 
-use sudo pacman -Qdtq to list all the unneeded packages
-
-use sudo pacman -R $(pacman -Qdtq) to remove them
-
-ideally use sudo pacman -R <package name>
-first then use line above to remove the no longer used dependencies
-
-if swap file is giving too much trouble
-then delete this in the same directory
-rm .filename.cpp.swp
 
 
-use vim -O file1.cpp file2.cpp 
-to open windows in vim and use cntrl w with arrow keys to move inbetween them
+
+
 
 
 /// to find any file in ur system
@@ -193,12 +195,105 @@ dbus-launch kdeconnect-cli -l or something
 
  ping -f www.geeksforgeeks.org
 
-tar -zcvf arcName.tar.gz dirname1 dirname2 etc etc
 
- pacman -Qdtq  then pacman -Rs them 
  chown :wheel filename // this makes sure the group permissons are updated to wheel grp
  chown ahish filename // this makes sure the owner is set
  chmod -R 777 file name is the way to ensure OwnerGroupOthers basically 3 digit binary setter ReadWriteExe
 ffmpeg -i file.mp3 -af "highpass=f=200, lowpass=f=300" out.mp3
 
 use bsdtar to unzip .zip files
+
+configuring vim plugin (nerdTree)
+git clone this 
+git clone https://github.com/preservim/nerdtree.git
+cd nerdtree  # If you cloned the repo or unzipped it
+cp -r * ~/.vim/
+
+
+
+how to create ur own systemd deamon 
+
+making a daemon from C :
+	
+
+write ur script as usual 
+go to /etc/systemd/system/ 
+create a file.service file 
+in that file 
+
+vim in visual highlight a text area and press u or Shift+u 
+to convert to uppercase or lower case 
+
+fsck to fix sd card when it crashes 
+when it doesnt login after a while then control + alt + F5 or somthing usually 
+apparently it opens an other terminal 
+
+vim navigation:
+	use b and e to begin and end of a word use shift to ignore punctuation
+	type a number then shiftG
+	use shift K to get definition 
+
+make: 
+	when using make do this instead 
+	time make -j$(nproc*1.5) &> error.txt 
+	to capture all errors and use all cores
+
+groups / chmod:
+	7 7 7
+	owner grp others
+	ls -l lists these 
+	u can see available grps in /etc/group	
+	
+	every file has 1 owner 1 group 
+	!! ever user belongs to 1 or more groups 
+	every group has associated permissons for it ( _7_ )
+	eg: file display > belongs to grp screen 
+	all users who are associated with screen can access display 
+	however the owner (creator usually ) of the file can limit some things for grps or others 
+
+
+installing .img os:
+	use fdisk -l on the file to get te partitions 
+	use dd on the files to load it on to the usb or device
+	the device must not be mounted 
+	dd if=path/to/inputfile of=path/to/outputfile
+
+delete a drive fully
+	use dd if=/dev/zero of=drive
+
+bluetooth:
+	basically u need to 
+	sudo pacman -S pulseaudio-bluetooth , bluetoothctl 
+	edit 
+	/etc/pulse/default.pa 
+
+	there is an if block (mid way the file) for the bluetooth
+	copy the load-module lines (2 lines from 2 if blocks)
+	and load it unconditionally 
+	use bluetoothctl cli
+	power on
+	agent on 
+	default agent ## only if u want to autoconnect
+
+	scan on
+	trust MAC
+	pair MAC
+	connect MAC
+
+
+index:
+pacman keyring error : 4  
+check battery percentage : 14
+enable touchpad touch : 15
+backlight control : 33
+sleep : 46
+basic mv and ls: 49
+vim stuff: 56
+wifi usage: 82
+tar :114
+vim refactor : 133
+create ur own systemd service: 210
+vim navigation : 277
+make: 232
+groups / chmod:
+bluetooth:
