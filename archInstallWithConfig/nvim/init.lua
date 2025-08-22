@@ -1,0 +1,7 @@
+require("core.options")
+require("core.keymaps")
+require("core.lazy")
+--require("plugins.lsp")
+--require("plugins.telescope")
+--require("plugins.treesitter")
+--require("plugins.undotree")

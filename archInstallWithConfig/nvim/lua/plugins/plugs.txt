@@ -1,0 +1,5 @@
+telescope 
+treesitter
+undotree
+lsp 
+
