@@ -1,0 +1,7 @@
+[ -z "$PS1" ] && return
+alias vim='nvim'
+alias ls='ls --color=auto'
+export LS_COLORS='ex=01;31:'$LS_COLORS
+function cd {
+    builtin cd "$@" && ls -F
+}
